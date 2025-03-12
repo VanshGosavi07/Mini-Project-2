@@ -210,177 +210,164 @@
     </style>
   </head>
   <body>
-    <div class="container" id="report-container">
-      <div class="report-header">Breast Cancer Diagnosis Report</div>
-      <div class="d-flex justify-content-end mb-3">
-        <button
-          class="custom-btn btn-chat me-2"
-           onclick="window.location.href='{{ url_for('chat_page') }}'"
-        >
-          Chat with Report
-        </button>
-        <button class="custom-btn btn-download" id="downloadBtn">
-          Download Report
-        </button>
-      </div>
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <div class="section patient-info">
-            <h3 class="section-title">Patient Information</h3>
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <th>Name</th>
-                  <td>{{ name }}</td>
-                </tr>
-                <tr>
-                  <th>Date of Birth</th>
-                  <td>{{ dob }}</td>
-                </tr>
-                <tr>
-                  <th>Age</th>
-                  <td>{{ age }}</td>
-                </tr>
-                <tr>
-                  <th>Date of Report</th>
-                  <td>{{ current_date }}</td>
-                </tr>
-                <tr>
-                  <th>Disease Name</th>
-                  <td>{{ disease_name }}</td>
-                </tr>
-                <tr>
-                  <th>Disease Level</th>
-                  <td
-                    class="{{ 'disease-malignant' if 'Malignant' in diseases_level[0] else 'disease-benign' }}"
-                  >
-                    {{ diseases_level[0] }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="container" id="report-container">
+          <div class="report-header">Breast Cancer Diagnosis Report</div>
+          <div class="d-flex justify-content-end mb-3">
+              <button class="custom-btn btn-chat me-2"
+                      onclick="window.location.href='{{ url_for('chat_page') }}'">
+                  Chat with Report
+              </button>
+              <button class="custom-btn btn-download" id="downloadBtn">
+                  Download Report
+              </button>
           </div>
-        </div>
-        <div class="col-md-6 d-flex">
-          <div class="img-container w-100">
-            {% for image_path in image_paths %}
-            <img
-              src="{{ url_for('static', filename=image_path) }}"
-              class="img-fluid"
-              alt="Medical Scan Image"
-            />
-            {% endfor %}
+          <div class="row mb-4">
+              <div class="col-md-6">
+                  <div class="section patient-info">
+                      <h3 class="section-title">Patient Information</h3>
+                      <table class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <th>Name</th>
+                                  <td>{{ name }}</td>
+                              </tr>
+                              <tr>
+                                  <th>Date of Birth</th>
+                                  <td>{{ dob }}</td>
+                              </tr>
+                              <tr>
+                                  <th>Age</th>
+                                  <td>{{ age }}</td>
+                              </tr>
+                              <tr>
+                                  <th>Date of Report</th>
+                                  <td>{{ current_date }}</td>
+                              </tr>
+                              <tr>
+                                  <th>Disease Name</th>
+                                  <td>{{ disease_name }}</td>
+                              </tr>
+                              <tr>
+                                  <th>Disease Level</th>
+                                  <td class="{{ 'disease-malignant' if 'Malignant' in diseases_level[0] else 'disease-benign' }}">
+                                      {{ diseases_level[0] }}
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              <div class="col-md-6 d-flex">
+                  <div class="img-container w-100">
+                      {% for image_path in image_paths %}
+                      <img src="{{ url_for('static', filename=image_path) }}"
+                           class="img-fluid"
+                           alt="Medical Scan Image" />
+                      {% endfor %}
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
 
-      {% if clinical_history %}
-      <div class="section">
-        <h3 class="section-title">Clinical History</h3>
-        <div class="card p-3">
-          <p class="mb-0">{{ clinical_history }}</p>
-        </div>
-      </div>
-      {% endif %} {% if symptoms %}
-      <div class="section">
-        <h3 class="section-title">Symptoms Description</h3>
-        <ul class="list-group">
-          {% for symptom in symptoms %}
-          <li class="list-group-item">{{ symptom }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %} {% if data['clinical examination'] or data['imaging studies']
-      or data['pathological staging'] %}
-      <div class="section findings-section">
-        <h3 class="section-title">Detailed Findings</h3>
-
-        {% if data['clinical examination'] %}
-        <h4>Clinical Examination</h4>
-        <p>{{ data['clinical examination'] }}</p>
-        {% endif %} {% if data['imaging studies'] %}
-        <h4>Imaging Studies</h4>
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr class="table-primary">
-              <th style="color: black; font-weight: bold">Imaging Type</th>
-              <th style="color: black; font-weight: bold">Findings</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {% for study in data['imaging studies'] %}
-            <tr>
-              <td>{{ study.split(':')[0] }}</td>
-              <td>{{ study.split(':')[1] }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        {% endif %} {% if data['pathological staging'] %}
-        <h4>Pathological Staging</h4>
-        <div class="card bg-light">
-          <div class="card-body">{{ data['pathological staging'] }}</div>
-        </div>
-        {% endif %}
-      </div>
-      {% endif %} {% if data['precautions'] %}
-      <div class="section precautions-section">
-        <h3 class="section-title">Precautions to Take</h3>
-        <div class="alert alert-warning">
-          <ul class="mb-0">
-            {% for precaution in data['precautions'] %}
-            <li>{{ precaution }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      {% endif %}
-
-      <div class="row">
-        {% if data['Recommended diet'] %}
-        <div class="col-md-6">
+          {% if clinical_history %}
           <div class="section">
-            <h3 class="section-title">Recommended Diet</h3>
-            <ul class="list-group">
-              {% for diet in data['Recommended diet'] %}
-              <li class="list-group-item">{{ diet }}</li>
-              {% endfor %}
-            </ul>
+              <h3 class="section-title">Clinical History</h3>
+              <div class="card p-3">
+                  <p class="mb-0">{{ clinical_history }}</p>
+              </div>
           </div>
-        </div>
-        {% endif %} {% if data['Recommended exercise'] %}
-        <div class="col-md-6">
+          {% endif %} {% if symptoms %}
           <div class="section">
-            <h3 class="section-title">Recommended Exercise</h3>
-            <ul class="list-group">
-              {% for exercise in data['Recommended exercise'] %}
-              <li class="list-group-item">{{ exercise }}</li>
-              {% endfor %}
-            </ul>
+              <h3 class="section-title">Symptoms Description</h3>
+              <ul class="list-group">
+                  {% for symptom in symptoms %}
+                  <li class="list-group-item">{{ symptom }}</li>
+                  {% endfor %}
+              </ul>
           </div>
-        </div>
-        {% endif %}
-      </div>
+          {% endif %} {% if data['clinical examination'] or data['imaging studies']
+          or data['pathological staging'] %}
+          <div class="section findings-section">
+              <h3 class="section-title">Detailed Findings</h3>
 
-      <div class="section doctor-info">
-        <h3 class="section-title">Report Prepared By</h3>
-        <div class="row">
-          <div class="col-md-8">
-            <p><strong>Doctor's Name:</strong> {{ prepared_by }}</p>
-            <p><strong>Date of Report:</strong> {{ current_date }}</p>
+              {% if data['clinical examination'] %}
+              <h4>Clinical Examination</h4>
+              <p>{{ data['clinical examination'] }}</p>
+              {% endif %} {% if data['imaging studies'] %}
+              <h4>Imaging Studies</h4>
+              <table class="table table-striped table-bordered">
+                  <thead>
+                      <tr class="table-primary">
+                          <th style="color: black; font-weight: bold">Imaging Type</th>
+                          <th style="color: black; font-weight: bold">Findings</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      {% for study in data['imaging studies'] %}
+                      <tr>
+                          <td>{{ study.split(':')[0] }}</td>
+                          <td>{{ study.split(':')[1] }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+              {% endif %} {% if data['pathological staging'] %}
+              <h4>Pathological Staging</h4>
+              <div class="card bg-light">
+                  <div class="card-body">{{ data['pathological staging'] }}</div>
+              </div>
+              {% endif %}
           </div>
-          <div class="col-md-4 text-end">
-            <p><strong>Signature:</strong></p>
-            <img
-              src="{{ url_for('static', filename='assets/signature.jpg') }}"
-              alt="Doctor's Signature"
-              width="150"
-            />
+          {% endif %} {% if data['precautions'] %}
+          <div class="section precautions-section">
+              <h3 class="section-title">Precautions to Take</h3>
+              <div class="alert alert-warning">
+                  <ul class="mb-0">
+                      {% for precaution in data['precautions'] %}
+                      <li>{{ precaution }}</li>
+                      {% endfor %}
+                  </ul>
+              </div>
           </div>
-        </div>
+          {% endif %}
+
+          <div class="row">
+              {% if data['Recommended diet'] %}
+              <div class="col-md-6">
+                  <div class="section">
+                      <h3 class="section-title">Recommended Diet</h3>
+                      <ul class="list-group">
+                          {% for diet in data['Recommended diet'] %}
+                          <li class="list-group-item">{{ diet }}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+              </div>
+              {% endif %} {% if data['Recommended exercise'] %}
+              <div class="col-md-6">
+                  <div class="section">
+                      <h3 class="section-title">Recommended Exercise</h3>
+                      <ul class="list-group">
+                          {% for exercise in data['Recommended exercise'] %}
+                          <li class="list-group-item">{{ exercise }}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+              </div>
+              {% endif %}
+          </div>
+          {% if user_type == 'doctor'%}
+          <div class="section doctor-info">
+              <h3 class="section-title">Report Prepared By</h3>
+              <div class="row">
+                  <div class="col-md-8">
+                      <p><strong>Doctor's Name:</strong> {{ prepared_by }}</p>
+                      <p><strong>Date of Report:</strong> {{ current_date }}</p>
+                  </div>
+              </div>
+          </div>
+          {% endif %}
       </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 

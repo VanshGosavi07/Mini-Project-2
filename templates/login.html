@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Bubbles Outside the Container -->
+<div class="bubble bubble-0"></div>
+<div class="bubble bubble-1"></div>
+<div class="bubble bubble-2"></div>
+<div class="bubble bubble-3"></div>
+<div class="bubble bubble-4"></div>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg animate__animated animate__fadeIn" style="max-width: 1000px; width: 90%; border-radius: 20px; border: none; overflow: hidden;">
+    <div class="row g-0">
+      <!-- Left Side: Animated Character -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center p-4 position-relative" style="background: linear-gradient(135deg, #910A67, #4A148C);">
+        <!-- Floating Bubbles -->
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+        <div class="bubble bubble-7"></div>
+        <div class="bubble bubble-8"></div>
+
+        <div class="character-container text-center">
+          <div class="character animate__animated animate__bounce animate__delay-1s">
+            <svg width="150" height="150" viewBox="0 0 512 512">
+              <circle cx="256" cy="256" r="256" fill="#F8E7F6" />
+              <circle cx="256" cy="180" r="100" fill="#910A67" />
+              <ellipse cx="210" cy="160" rx="15" ry="20" fill="white" />
+              <ellipse cx="300" cy="160" rx="15" ry="20" fill="white" />
+              <circle cx="210" cy="160" r="7" fill="#333" />
+              <circle cx="300" cy="160" r="7" fill="#333" />
+              <path d="M180 240 Q256 300 330 240" stroke="#333" stroke-width="5" fill="transparent" />
+              <path d="M150 100 Q120 120 130 150" stroke="#4A148C" stroke-width="5" fill="transparent" />
+              <path d="M360 100 Q390 120 380 150" stroke="#4A148C" stroke-width="5" fill="transparent" />
+            </svg>
+          </div>
+          <h2 class="text-white mt-3 display-5 fw-bold animate__animated animate__fadeInDown animate__delay-500ms">Welcome Back!</h2>
+          <p class="text-white-50 animate__animated animate__fadeIn animate__delay-1s">Login to access your medical reports</p>
+        </div>
+      </div>
+
+      <!-- Right Side: Login Form -->
+      <div class="col-md-6 p-4 position-relative" style="background: linear-gradient(to bottom, #ffffff, #FBF0F8);">
+        <!-- Floating Bubbles -->
+        <div class="bubble bubble-9"></div>
+        <div class="bubble bubble-10"></div>
+        <div class="bubble bubble-11"></div>
+        <div class="bubble bubble-12"></div>
+
+        <h3 class="mb-4 text-center animate__animated animate__fadeInUp" style="color: #910A67; font-weight: bold; font-size: 2rem;">Login Form</h3>
+
+        <form action="/login" method="POST" class="needs-validation animate__animated animate__fadeInUp animate__delay-500ms" novalidate>
+          {{ form.hidden_tag() }}
+
+          <!-- Email Input -->
+          <div class="form-group mb-4 input-group-lg">
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #910A67; border-color: #910A67; color: white;">
+                <i class="fas fa-envelope"></i>
+              </span>
+              {{ form.email.label(for="email", class="form-label fw-bold d-none") }}
+              {{ form.email(id="email", class="form-control form-control-lg border-start-0", placeholder="Enter your email", style="background-color: #F8E7F6; border-color: #910A67;") }}
+            </div>
+            {% if form.email.errors %}
+              <div class="invalid-feedback d-block animate__animated animate__headShake">
+                {% for error in form.email.errors %}
+                  <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-group mb-4 input-group-lg">
+            <div class="input-group">
+              <span class="input-group-text" style="background-color: #910A67; border-color: #910A67; color: white;">
+                <i class="fas fa-lock"></i>
+              </span>
+              {{ form.password.label(for="password", class="form-label fw-bold d-none") }}
+              {{ form.password(id="password", class="form-control form-control-lg border-start-0", placeholder="Enter your password", style="background-color: #F8E7F6; border-color: #910A67;") }}
+            </div>
+            {% if form.password.errors %}
+              <div class="invalid-feedback d-block animate__animated animate__headShake">
+                {% for error in form.password.errors %}
+                  <div><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid gap-2 mt-4">
+            {{ form.submit(class="btn btn-lg animate__animated animate__pulse animate__infinite animate__slow", style="background: linear-gradient(135deg, #910A67, #4A148C); color: white; font-size: 1.2rem; border: none; box-shadow: 0 4px 15px rgba(145, 10, 103, 0.4);") }}
+            <a href="/register" class="btn btn-outline-secondary btn-lg mt-3 animate__animated animate__fadeIn animate__delay-1s" style="font-size: 1.1rem; border-color: #4A148C; color: #4A148C;">Create New Account</a>
+          </div>
+
+          <!-- Forgot Password Link -->
+          <div class="text-center mt-4 animate__animated animate__fadeIn animate__delay-1s">
+            <a href="#" class="text-decoration-none" style="color: #910A67;">Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Additional CSS for Animations -->
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+  .character {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .character:hover {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .character-container {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .card {
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(145, 10, 103, 0.2) !important;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(145, 10, 103, 0.25);
+    border-color: #910A67;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px #f8c8dc!important;
+  }
+
+  .btn-outline-secondary:hover {
+    background-color:rgb(225, 167, 217);
+    color: white;
+  }
+
+  /* Floating Bubbles */
+  .bubble {
+    position: absolute;
+    background: rgba(145, 10, 103, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .bubble-0 {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+  }
+
+  .bubble-1 {
+    width: 120px;
+    height: 120px;
+    top: 20%;
+    right: 5%;
+    animation-delay: 2s;
+  }
+
+  .bubble-2 {
+    width: 100px;
+    height: 100px;
+    bottom: 10%;
+    left: 10%;
+    animation-delay: 4s;
+  }
+
+  .bubble-3 {
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    right: 15%;
+    animation-delay: 6s;
+  }
+
+  .bubble-4 {
+    width: 200px;
+    height: 200px;
+    top: 5%;
+    left: 20%;
+    animation-delay: 8s;
+  }
+
+  .bubble-5 {
+    width: 60px;
+    height: 60px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .bubble-6 {
+    width: 40px;
+    height: 40px;
+    top: 30%;
+    left: 20%;
+    animation-delay: 2s;
+  }
+
+  .bubble-7 {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 5%;
+    animation-delay: 4s;
+  }
+
+  .bubble-8 {
+    width: 30px;
+    height: 30px;
+    top: 70%;
+    left: 15%;
+    animation-delay: 6s;
+  }
+
+  .bubble-9 {
+    width: 60px;
+    height: 60px;
+    top: 10%;
+    right: 10%;
+    animation-delay: 1s;
+  }
+
+  .bubble-10 {
+    width: 40px;
+    height: 40px;
+    top: 30%;
+    right: 20%;
+    animation-delay: 3s;
+  }
+
+  .bubble-11 {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    right: 5%;
+    animation-delay: 5s;
+  }
+
+  .bubble-12 {
+    width: 30px;
+    height: 30px;
+    top: 70%;
+    right: 15%;
+    animation-delay: 7s;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(10deg);
+    }
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+
+  /* Responsive Design for Mobile */
+  @media (max-width: 768px) {
+    .card {
+      margin: 20px;
+    }
+    .col-md-6 {
+      width: 100%;
+    }
+    .character {
+      width: 100px;
+      height: 100px;
+    }
+    h2 {
+      font-size: 1.5rem !important;
+    }
+    h3 {
+      font-size: 1.5rem !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const character = document.querySelector('.character');
+    if (character) {
+      character.addEventListener('click', function() {
+        this.classList.add('animate__animated', 'animate__tada');
+        setTimeout(() => {
+          this.classList.remove('animate__animated', 'animate__tada');
+        }, 1000);
+      });
+    }
+  });
+</script>
+
+{% endblock %}

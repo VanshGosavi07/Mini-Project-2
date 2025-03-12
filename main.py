@@ -9,10 +9,80 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import cv2
 import ast
+from flask import Flask, render_template, redirect, url_for, session, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms import TextAreaField, FileField, SelectField
+from wtforms.validators import DataRequired, Email, ValidationError, Length
+from wtforms.fields import DateField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+import bcrypt
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
+# SQLite Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'your_secret_key_here'
+
+db = SQLAlchemy(app)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    contact_number = db.Column(db.String(15), nullable=False)
+    date_of_birth = db.Column(db.String(10), nullable=False)
+    city = db.Column(db.String(50), nullable=False)
+    user_type = db.Column(db.String(10), nullable=False)
+    gender = db.Column(db.String(10), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+
+
+class RegisterForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    contact_number = StringField("Contact Number", validators=[DataRequired()])
+    date_of_birth = StringField("Date of Birth", validators=[DataRequired()])
+    city = StringField("City", validators=[DataRequired()])
+    user_type = SelectField("User Type", choices=[(
+        'doctor', 'Doctor'), ('patient', 'Patient')], validators=[DataRequired()])
+    gender = SelectField("Gender", choices=[('male', 'Male'), ('female', 'Female')], validators=[
+                         DataRequired()])  # New field for gender
+    submit = SubmitField("Register")
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email Already Taken')
+
+
+class LoginForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit = SubmitField("Login")
+
+class DiagnosisForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    dob = DateField('Date of Birth', validators=[DataRequired()])
+    disease_name = SelectField('Disease Name', 
+                               choices=[('Breast Cancer', 'Breast Cancer')],
+                               validators=[DataRequired()])
+    ct_images = FileField('Upload CT Images', 
+                          validators=[DataRequired(), FileAllowed(['png'], 'Images only!')])
+    clinical_history = TextAreaField('Clinical History', validators=[DataRequired()])
+    symptoms = StringField('Symptoms', validators=[DataRequired()])
+    submit = SubmitField('Generate Report')
+
+    def validate_name(self, field):
+        if not field.data.isalpha():
+            raise ValidationError('Name must contain only letters')
+
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -23,6 +93,71 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 def home():
     return render_template('home.html')
 
+# Function to Navigate to the register page
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        password = form.password.data
+        contact_number = form.contact_number.data
+        date_of_birth = form.date_of_birth.data
+        city = form.city.data
+        user_type = form.user_type.data
+        gender = form.gender.data  # Get gender from form
+
+        # Calculate age from date_of_birth
+        dob_date = datetime.strptime(date_of_birth, '%Y-%m-%d')
+        age = datetime.now().year - dob_date.year - ((datetime.now().month,
+                           datetime.now().day) < (dob_date.month, dob_date.day))
+
+        hashed_password = bcrypt.hashpw(
+            password.encode('utf-8'), bcrypt.gensalt())
+
+        new_user = User(name=name, email=email, password=hashed_password, contact_number=contact_number,
+                        # Include gender and age
+                        date_of_birth=date_of_birth, city=city, user_type=user_type, gender=gender, age=age)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('login'))
+
+    return render_template('register.html', form=form)
+
+# Function to Navigate to the login page
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+
+        user = User.query.filter_by(email=email).first()
+        if user and bcrypt.checkpw(password.encode('utf-8'), user.password):
+            session['user_id'] = user.id
+            session['name']=user.name
+            session['user_type']=user.user_type
+            return redirect(url_for('form'))
+        else:
+            flash("Login failed. Please check your email and password")
+            return redirect(url_for('login'))
+
+    return render_template('login.html', form=form)
+
+@app.route('/form', methods=['GET', 'POST'])
+def form():
+    form = DiagnosisForm()
+    return render_template('form.html', form=form)
+
+# Function to logout the user
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash("You have been logged out successfully.")
+    return redirect(url_for('login'))
+
+
 # Function to Generate the Report from form Data
 @app.route('/generate_report', methods=['POST'])
 def generate_report():
@@ -32,7 +167,7 @@ def generate_report():
         dob = request.form['dob']
         disease_name = request.form['disease_name']
         clinical_history = request.form['clinical_history']
-        prepared_by = request.form['prepared_by']
+        prepared_by = session.get('name')
 
         # Parse symptoms JSON
         symptoms_json = request.form.get('symptoms_json')
@@ -72,7 +207,9 @@ def generate_report():
 
         # Pass data to the report template
         current_date = datetime.now().strftime('%Y-%m-%d')
-        return render_template('report.html', name=name, dob=dob, age=age, disease_name=disease_name, clinical_history=clinical_history, symptoms=symptoms, prepared_by=prepared_by, image_paths=new_image_paths, diseases_level=diseases_level, data=data, current_date=current_date)
+        user_type = session.get('user_type')
+        
+        return render_template('report.html',user_type=user_type, name=name, dob=dob, age=age, disease_name=disease_name, clinical_history=clinical_history, symptoms=symptoms, prepared_by=prepared_by, image_paths=new_image_paths, diseases_level=diseases_level, data=data, current_date=current_date)
 
     return redirect(url_for('home'))
 
@@ -216,4 +353,6 @@ def chat_page():
     return render_template('chat.html')
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
