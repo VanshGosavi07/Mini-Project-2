@@ -160,36 +160,47 @@
     const messageInput = document.getElementById("messageInput");
     const chatMessages = document.getElementById("chatMessages");
 
-    chatForm.addEventListener("submit", function (event) {
-      event.preventDefault();
+    chatForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        
+        const messageText = messageInput.value.trim();
+        if (!messageText) return; // Ignore empty input
 
-      const messageText = messageInput.value.trim();
-      if (!messageText) return; // Don't send empty messages
+        // Add user message
+        const userMessage = document.createElement("div");
+        userMessage.className = "message user-message";
+        userMessage.innerHTML = `<div class="message-sender">You</div><div>${messageText}</div>`;
+        chatMessages.appendChild(userMessage);
 
-      // Add user message (right side)
-      const userMessage = document.createElement("div");
-      userMessage.className = "message user-message";
-      userMessage.innerHTML = `<div class="message-sender">You</div><div>${messageText}</div>`;
-      chatMessages.appendChild(userMessage);
-
-      // Auto-scroll to the latest message
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      // Clear input
-      messageInput.value = "";
-
-      // Add AI response (left side) after a short delay
-      setTimeout(() => {
-        const aiMessage = document.createElement("div");
-        aiMessage.className = "message ai-message";
-        aiMessage.innerHTML = `<div class="message-sender">AI</div><div>Yes, I will give you an answer for now</div>`;
-        chatMessages.appendChild(aiMessage);
-
-        // Auto-scroll to the latest message
+        // Auto-scroll
         chatMessages.scrollTop = chatMessages.scrollHeight;
-      }, 1000); // 1-second delay for realism
+        messageInput.value = "";
+
+        try {
+            // Send user message to Flask backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: messageText }) // Match backend's expected format
+            });
+
+            const data = await response.json();
+
+            // Add AI response
+            const aiMessage = document.createElement("div");
+            aiMessage.className = "message ai-message";
+            aiMessage.innerHTML = `<div class="message-sender">AI</div><div>${data.response}</div>`;
+            chatMessages.appendChild(aiMessage);
+
+            // Auto-scroll
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
     });
-  });
+});
+
 </script>
 
 {% endblock %}
