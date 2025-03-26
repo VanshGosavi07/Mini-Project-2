@@ -256,7 +256,7 @@ def chat_with_bot(user_input: str) -> str:
         return "Please enter a valid query."
     context = doc_processor.retrieve_context(user_input)
     prompt = f"Use the following context to answer the question.\nContext:\n{context}\nUser Question: {user_input}\nAnswer:"
-    return GroqClient.call_groq_api(prompt, model="mixtral-8x7b-32768")
+    return GroqClient.call_groq_api(prompt, model="gemma2-9b-it")
 
 # Routes
 @app.route('/')
