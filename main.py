@@ -38,7 +38,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PDF_FOLDER'] = "RAG Data"
-GROQ_API_KEY = os.getenv('GROQ_API_KEY', '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')
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 db = SQLAlchemy(app)
