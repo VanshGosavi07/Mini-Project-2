@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +11,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
   <!-- Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --primary-color: #910A67;
@@ -17,15 +22,51 @@
       --light-bg: #F8E7F6;
       --gradient-bg: linear-gradient(135deg, #910A67, #4A148C);
       --text-white: #ffffff;
-      --text-dark: #333;
+      --text-dark: #333333;
+      --text-muted: #6c757d;
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Open Sans', sans-serif;
     }
 
     body {
       background: linear-gradient(135deg, #f8e7f6, #e0f7fa);
-      font-family: "Arial", sans-serif;
+      font-family: var(--font-body);
       color: var(--text-dark);
       overflow-x: hidden;
       position: relative;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 1.2rem;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    /* Improved Typography */
+    .text-justify {
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      font-weight: 400;
     }
 
     /* Navbar */
@@ -37,21 +78,28 @@
       top: 0;
       z-index: 1000;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-family: var(--font-heading);
     }
+
     .navbar-brand {
       color: var(--text-white) !important;
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
+
     .nav-link {
       color: var(--text-white) !important;
       font-weight: 500;
       margin-left: 1.5rem;
       position: relative;
+      font-size: 1.05rem;
     }
+
     .nav-link:hover {
       color: #ffd700 !important;
     }
+
     .nav-link::after {
       content: "";
       position: absolute;
@@ -62,6 +110,7 @@
       left: 0;
       transition: width 0.3s ease;
     }
+
     .nav-link:hover::after {
       width: 100%;
     }
@@ -75,19 +124,65 @@
       opacity: 0.7;
       animation: float 7s ease-in-out infinite;
     }
-    .bubble-0 { width: 150px; height: 150px; top: 10%; left: 5%; animation-delay: 0s; }
-    .bubble-1 { width: 120px; height: 120px; top: 20%; right: 5%; animation-delay: 2s; }
-    .bubble-2 { width: 100px; height: 100px; bottom: 10%; left: 10%; animation-delay: 4s; }
-    .bubble-3 { width: 80px; height: 80px; bottom: 20%; right: 15%; animation-delay: 6s; }
-    .bubble-4 { width: 200px; height: 200px; top: 5%; left: 20%; animation-delay: 8s; }
+
+    .bubble-0 {
+      width: 150px;
+      height: 150px;
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .bubble-1 {
+      width: 120px;
+      height: 120px;
+      top: 20%;
+      right: 5%;
+      animation-delay: 2s;
+    }
+
+    .bubble-2 {
+      width: 100px;
+      height: 100px;
+      bottom: 10%;
+      left: 10%;
+      animation-delay: 4s;
+    }
+
+    .bubble-3 {
+      width: 80px;
+      height: 80px;
+      bottom: 20%;
+      right: 15%;
+      animation-delay: 6s;
+    }
+
+    .bubble-4 {
+      width: 200px;
+      height: 200px;
+      top: 5%;
+      left: 20%;
+      animation-delay: 8s;
+    }
+
     @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(15deg); }
-      100% { transform: translateY(0) rotate(0deg); }
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-30px) rotate(15deg);
+      }
+
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
     }
 
     /* Hero Section */
     .hero-section {
+      margin-top: 50px;
+      /* Adjust the value as needed */
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -97,6 +192,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .hero-section::before {
       content: "";
       position: absolute;
@@ -108,6 +204,7 @@
       opacity: 0.1;
       z-index: -1;
     }
+
     .hero-section .card {
       background: #ffffff;
       border: none;
@@ -115,17 +212,23 @@
       padding: 3rem;
       box-shadow: 0 15px 40px rgba(145, 10, 103, 0.2);
     }
+
     .hero-section h1 {
       color: var(--primary-color);
       font-size: 3.5rem;
-      font-weight: bold;
+      font-weight: 700;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
     }
+
     .hero-section p {
       font-size: 1.5rem;
       color: var(--text-dark);
       margin: 1.5rem 0;
+      line-height: 1.6;
     }
+
     .hero-section .btn-primary {
       background: var(--gradient-bg);
       border: none;
@@ -133,14 +236,20 @@
       font-size: 1.2rem;
       border-radius: 30px;
       box-shadow: 0 5px 20px rgba(145, 10, 103, 0.4);
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
+
     .hero-section .btn-outline-primary {
       border: 2px solid var(--primary-color);
       color: var(--primary-color);
       padding: 1rem 3rem;
       font-size: 1.2rem;
       border-radius: 30px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
+
     .hero-section .btn:hover {
       transform: translateY(-5px);
       transition: all 0.3s ease;
@@ -149,161 +258,758 @@
     /* Features Section */
     .features-section {
       padding: 6rem 2rem;
-      background: #fff;
+      background: linear-gradient(135deg, #fff 0%, var(--light-bg) 100%);
+      position: relative;
+      overflow: hidden;
     }
+
     .features-section h2 {
       color: var(--primary-color);
-      font-size: 2.8rem;
-      font-weight: bold;
+      font-size: 3rem;
+      font-weight: 700;
       text-align: center;
       margin-bottom: 4rem;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    .features-section h2 .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    .features-section h2 .letter:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .features-section h2 .letter:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .features-section h2 .letter:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .features-section h2 .letter:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .features-section h2 .letter:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    .features-section h2 .letter:nth-child(6) {
+      animation-delay: 0.6s;
+    }
+
+    .features-section h2 .letter:nth-child(7) {
+      animation-delay: 0.7s;
+    }
+
+    .features-section h2 .letter:nth-child(8) {
+      animation-delay: 0.8s;
+    }
+
+    .features-section h2 .letter:nth-child(9) {
+      animation-delay: 0.9s;
+    }
+
+    .features-section h2 .letter:nth-child(10) {
+      animation-delay: 1.0s;
+    }
+
+    .features-section h2 .letter:nth-child(11) {
+      animation-delay: 1.1s;
+    }
+
+    .features-section h2 .letter:nth-child(12) {
+      animation-delay: 1.2s;
+    }
+
     .feature-card {
-      background: var(--light-bg);
+      background: #ffffff;
       border-radius: 20px;
       padding: 2.5rem;
       text-align: center;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 10px 30px rgba(145, 10, 103, 0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(145, 10, 103, 0.1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 300px;
     }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-bg);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
     .feature-card:hover {
       transform: translateY(-15px);
-      box-shadow: 0 15px 30px rgba(145, 10, 103, 0.2);
+      box-shadow: 0 20px 40px rgba(145, 10, 103, 0.2);
     }
+
+    .feature-card:hover::before {
+      opacity: 0.05;
+    }
+
     .feature-card i {
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: var(--primary-color);
       margin-bottom: 1.5rem;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 2;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .feature-card:hover i {
+      transform: scale(1.2);
+      color: var(--secondary-color);
+    }
+
     .feature-card h3 {
       font-size: 1.8rem;
       color: var(--secondary-color);
       margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
     }
+
     .feature-card p {
       font-size: 1.1rem;
+      color: var(--text-dark);
+      position: relative;
+      z-index: 2;
+      line-height: 1.6;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      hyphens: none;
+    }
+
+    @media (max-width: 768px) {
+      .features-section h2 {
+        font-size: 2.5rem;
+      }
+
+      .feature-card {
+        margin-bottom: 2rem;
+      }
     }
 
     /* How to Use Section */
     .how-to-use-section {
       padding: 6rem 2rem;
-      background: var(--light-bg);
+      background: linear-gradient(135deg, var(--light-bg) 0%, #fff 100%);
+      position: relative;
+      overflow: hidden;
     }
+
     .how-to-use-section h2 {
       color: var(--primary-color);
-      font-size: 2.8rem;
-      font-weight: bold;
+      font-size: 3rem;
+      font-weight: 700;
       text-align: center;
       margin-bottom: 4rem;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    .how-to-use-section h2 .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+
     .step {
       display: flex;
       align-items: center;
-      margin-bottom: 3rem;
-      padding: 1rem;
+      margin-bottom: 4rem;
+      padding: 2rem;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(145, 10, 103, 0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .step:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(145, 10, 103, 0.2);
+    }
+
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-bg);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .step:hover::before {
+      opacity: 0.05;
+    }
+
     .step:nth-child(even) {
       flex-direction: row-reverse;
     }
+
     .step-content {
       flex: 1;
-      padding: 1.5rem;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
     }
+
     .step-content h3 {
       color: var(--secondary-color);
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      font-weight: 600;
     }
+
+    .step-content h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: width 0.4s ease;
+    }
+
+    .step:hover .step-content h3::after {
+      width: 100%;
+    }
+
     .step-content p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      line-height: 1.6;
+      text-align: left;
     }
+
+    .step-image {
+      flex: 1;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
     .step-image img {
-      max-width: 200px;
+      max-width: 250px;
       height: auto;
       border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .step:hover .step-image img {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .step-number {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-bg);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(102, 13, 74, 0.3);
+      z-index: 3;
+    }
+
+    @media (max-width: 768px) {
+      .step {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .step:nth-child(even) {
+        flex-direction: column;
+      }
+
+      .step-content {
+        padding: 1rem;
+      }
+
+      .step-content h3 {
+        font-size: 1.8rem;
+      }
+
+      .step-content p {
+        text-align: center;
+      }
+
+      .step-image img {
+        max-width: 200px;
+        margin: 1rem 0;
+      }
+
+      .step-number {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0 auto 1rem;
+      }
     }
 
     /* About Section */
     .about-section {
       padding: 6rem 2rem;
-      background: #fff;
+      background: linear-gradient(135deg, #fff 0%, var(--light-bg) 100%);
+      position: relative;
+      overflow: hidden;
     }
+
     .about-section h2 {
       color: var(--primary-color);
-      font-size: 2.8rem;
-      font-weight: bold;
-      margin-bottom: 2.5rem;
+      font-size: 3rem;
+      font-weight: 700;
       text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .about-section p {
+
+    .about-section h2 .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    .about-container {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(145, 10, 103, 0.1);
+      overflow: hidden;
+    }
+
+    .about-content {
+      padding: 3rem;
+    }
+
+    .about-content p {
       font-size: 1.2rem;
       color: var(--text-dark);
-      max-width: 800px;
-      margin: 0 auto;
+      line-height: 1.8;
+      margin-bottom: 2rem;
     }
-    .about-section img {
-      max-width: 100%;
-      border-radius: 20px;
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--light-bg);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(145, 10, 103, 0.1);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+    }
+
+    .about-image {
+      height: 100%;
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(145, 10, 103, 0.1), rgba(74, 20, 140, 0.1));
+      z-index: 1;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+
+      object-position: center;
+    }
+
+    @media (max-width: 768px) {
+      .about-section h2 {
+        font-size: 2.5rem;
+      }
+
+      .about-image {
+        min-height: 300px;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .about-content {
+        padding: 2rem;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
     }
 
     /* Footer */
     footer {
-      background: var(--secondary-color);
+      background: var(--gradient-bg);
+      /* Matches the theme */
       color: var(--text-white);
-      padding: 4rem 2rem;
+      padding: 2rem 1rem;
       text-align: center;
     }
+
     footer h4 {
       font-size: 1.5rem;
       margin-bottom: 1.5rem;
+      font-weight: 600;
     }
+
     footer .social-icons {
       margin: 2rem 0;
     }
+
     footer .social-icons a {
       color: var(--text-white);
       font-size: 2rem;
       margin: 0 1rem;
       transition: color 0.3s ease, transform 0.3s ease;
     }
+
     footer .social-icons a:hover {
       color: #ffd700;
       transform: scale(1.2);
     }
+
     footer .links a {
       color: #ffd700;
       text-decoration: none;
       margin: 0 1rem;
       font-size: 1.1rem;
       transition: color 0.3s ease;
+      font-weight: 500;
     }
+
     footer .links a:hover {
       color: #fff;
       text-decoration: underline;
     }
+
     footer p {
       margin-top: 2rem;
       font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Contact Section Styles */
+    .contact-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, #fff 0%, var(--light-bg) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section h2 {
+      color: var(--primary-color);
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-container {
+      display: flex;
+      align-items: stretch;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(145, 10, 103, 0.1);
+    }
+
+    .contact-form,
+    .contact-image {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-form {
+      padding: 2.5rem;
+    }
+
+    .contact-image {
+      background: var(--light-bg);
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .contact-image img {
+      width: 100%;
+      height: 100%;
+
+      object-position: center;
+      border-radius: 0;
+      margin: 0;
+      display: block;
+    }
+
+    .contact-form .form-control {
+      border: 2px solid var(--light-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      font-family: var(--font-body);
+    }
+
+    .contact-form .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(145, 10, 103, 0.25);
+    }
+
+    .contact-form .btn-primary {
+      background: var(--gradient-bg);
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .contact-form .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(145, 10, 103, 0.3);
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .navbar-brand { font-size: 1.5rem; }
-      .nav-link { margin-left: 1rem; }
-      .hero-section h1 { font-size: 2.5rem; }
-      .hero-section p { font-size: 1.2rem; }
-      .features-section h2, .how-to-use-section h2, .about-section h2 { font-size: 2rem; }
-      .feature-card { margin-bottom: 2rem; }
-      .step { flex-direction: column; text-align: center; }
-      .step:nth-child(even) { flex-direction: column; }
-      .step-image img { margin: 1rem 0; }
-      .about-section img { margin-top: 2rem; }
-      footer .social-icons a { font-size: 1.5rem; }
+      body {
+        font-size: 1rem;
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+      }
+
+      .nav-link {
+        margin-left: 1rem;
+        font-size: 0.95rem;
+      }
+
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-section p {
+        font-size: 1.2rem;
+      }
+
+      .features-section h2,
+      .how-to-use-section h2,
+      .about-section h2,
+      .contact-section h2 {
+        font-size: 2rem;
+      }
+
+      .feature-card {
+        margin-bottom: 2rem;
+      }
+
+      .step {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .step:nth-child(even) {
+        flex-direction: column;
+      }
+
+      .step-image img {
+        margin: 1rem 0;
+      }
+
+      .about-section img {
+        margin-top: 2rem;
+      }
+
+      footer .social-icons a {
+        font-size: 1.5rem;
+      }
+
+      .contact-container {
+        flex-direction: column;
+      }
+
+      .contact-image {
+        height: 250px;
+      }
+
+      .contact-image img {
+        object-fit: cover;
+      }
+    }
+
+    /* Typing Animation */
+    .typing-animation {
+      overflow: visible;
+      white-space: normal;
+      margin: 0 auto;
+      width: 100%;
+      word-wrap: break-word;
+      word-break: keep-all;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+      font-weight: 700;
+    }
+
+    .letter-animation {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.3s forwards;
+      white-space: normal;
+      letter-spacing: -0.05em;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+      }
+
+      .navbar,
+      footer,
+      .bubble {
+        display: none !important;
+      }
+
+      .hero-section,
+      .features-section,
+      .how-to-use-section,
+      .about-section,
+      .contact-section {
+        padding: 1rem !important;
+      }
+
+      .hero-section::before,
+      .feature-card::before,
+      .step::before,
+      .about-image::before {
+        display: none !important;
+      }
+
+      .card,
+      .feature-card,
+      .step,
+      .about-container,
+      .contact-container {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        page-break-after: avoid;
+      }
+
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+      }
     }
   </style>
 </head>
+
 <body>
   <!-- Floating Bubbles -->
   <div class="bubble bubble-0"></div>
@@ -313,7 +1019,7 @@
   <div class="bubble bubble-4"></div>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark ">
     <div class="container">
       <a class="navbar-brand animate__animated animate__fadeInLeft" href="#home">Medical Diagnosis System</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -322,25 +1028,49 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#features">Our Features</a></li>
-          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#how-to-use">How to Use</a></li>
-          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#features">Our
+              Features</a></li>
+          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#how-to-use">How to
+              Use</a></li>
+          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#about">About Us</a>
+          </li>
+          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="#contact">Contact Us</a>
+          </li>
           <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="/login">Login</a></li>
-          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="/register">Register</a></li>
+          <li class="nav-item"><a class="nav-link animate__animated animate__fadeInRight" href="/register">Register</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
+
+
   <!-- Hero Section (Home) -->
   <section id="home" class="hero-section">
     <div class="container">
-      <div class="card animate__animated animate__zoomIn">
-        <h1 class="display-4 animate__animated animate__fadeInDown">Welcome to Medical Diagnosis System</h1>
-        <p class="lead mb-5 animate__animated animate__fadeInUp">Your trusted platform for medical diagnosis and consultation</p>
-        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-          <a href="/login" class="btn btn-primary btn-lg px-5 rounded-pill animate__animated animate__pulse animate__infinite">Login</a>
-          <a href="/register" class="btn btn-outline-primary btn-lg px-5 rounded-pill animate__animated animate__bounceIn">Register</a>
+      <div class="row align-items-center">
+        <div class="col-md-5 animate__animated animate__fadeInLeft" style="margin-top: 100px;">
+          <img src="https://icare.com/wp-content/uploads/2023/10/iCare_professional.png" alt="Medical Team"
+            class="img-fluid rounded-5 shadow-lg">
+        </div>
+        <div class="col-md-6 animate__animated animate__fadeInRight text-center"
+          style="margin-top: 100px; padding-left: 50px;">
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="display-4 mb-4 typing-animation"
+              style="font-size: 2.8rem; line-height: 1.3; letter-spacing: -0.05em; white-space: normal; width: 100%;">
+              <h1 class="letter-animation">Welcome to Medical Diagnosis System</h1>
+            </h1>
+            <p class="lead mb-1" style="color: #4A148C;">
+              <center>Your trusted platform for medical diagnosis and consultation</center>
+            </p>
+            <div class="d-grid gap-3 d-sm-flex justify-content-center">
+              <a href="/login"
+                class="btn btn-primary btn-lg px-5 rounded-pill animate__animated animate__pulse animate__infinite">Login</a>
+              <a href="/register"
+                class="btn btn-outline-primary btn-lg px-5 rounded-pill animate__animated animate__bounceIn">Register</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -349,27 +1079,32 @@
   <!-- Features Section -->
   <section id="features" class="features-section">
     <div class="container">
-      <h2 class="animate__animated animate__fadeInDown">Our Features</h2>
+      <h2>
+        <h2 class="letter">Out Features</h2>
+      </h2>
       <div class="row">
         <div class="col-md-4">
           <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-            <i class="bi bi-heart-pulse"></i>
+            <i class="bi bi-heart-pulse-fill"></i>
             <h3>Accurate Diagnosis</h3>
-            <p>Advanced AI-powered tools for precise medical assessments.</p>
+            <p>Advanced AI-powered tools for precise medical assessments and real-time health monitoring with
+              comprehensive analysis of symptoms and medical history.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-            <i class="bi bi-chat-dots"></i>
+            <i class="bi bi-chat-dots-fill"></i>
             <h3>Real-Time Chat</h3>
-            <p>Consult with experts or AI assistants instantly.</p>
+            <p>Instant consultation with medical experts and AI assistants for immediate guidance, available 24/7 for
+              your healthcare needs.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
-            <i class="bi bi-file-medical"></i>
+            <i class="bi bi-file-medical-fill"></i>
             <h3>Detailed Reports</h3>
-            <p>Comprehensive medical reports downloadable in PDF.</p>
+            <p>Comprehensive medical reports with detailed analysis, treatment recommendations, and downloadable PDF
+              format for easy sharing with your doctor.</p>
           </div>
         </div>
       </div>
@@ -379,38 +1114,50 @@
   <!-- How to Use Section -->
   <section id="how-to-use" class="how-to-use-section">
     <div class="container">
-      <h2 class="animate__animated animate__fadeInDown">How to Use</h2>
+      <h2>
+        <h2 class="letter">How to Use</h2>
+      </h2>
       <div class="step animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+        <div class="step-number">1</div>
         <div class="step-content">
-          <h3>Step 1: Sign Up</h3>
-          <p>Create an account to access our diagnostic tools.</p>
+          <h3>Sign Up</h3>
+          <p>Create your personalized account to access our advanced diagnostic tools and features. The registration
+            process is quick and secure, taking less than 2 minutes to complete.</p>
         </div>
         <div class="step-image">
-          <img src="https://cdn3.iconfinder.com/data/icons/registration-login-website-form/100/up_registration_login_website_form_register-512.png" alt="Sign Up" />
+          <img
+            src="https://cdn3.iconfinder.com/data/icons/registration-login-website-form/100/up_registration_login_website_form_register-512.png"
+            alt="Sign Up" />
         </div>
       </div>
       <div class="step animate__animated animate__fadeInRight" style="animation-delay: 0.4s;">
+        <div class="step-number">2</div>
         <div class="step-content">
-          <h3>Step 2: Submit Data</h3>
-          <p>Upload your medical data or images for analysis.</p>
+          <h3>Submit Data</h3>
+          <p>Upload your medical data, images, or symptoms for comprehensive analysis. Our system supports various file
+            formats including PDFs, JPEGs, and DICOM for medical imaging.</p>
         </div>
         <div class="step-image">
           <img src="https://cdn3.iconfinder.com/data/icons/upload-9/64/Uploading_Data-512.png" alt="Submit Data" />
         </div>
       </div>
       <div class="step animate__animated animate__fadeInLeft" style="animation-delay: 0.6s;">
+        <div class="step-number">3</div>
         <div class="step-content">
-          <h3>Step 3: Get Diagnosis</h3>
-          <p>Receive an AI-generated diagnosis report instantly.</p>
+          <h3>Get Diagnosis</h3>
+          <p>Receive instant AI-powered diagnosis with detailed analysis and recommendations. Our system provides
+            probability scores for different conditions and suggests next steps.</p>
         </div>
         <div class="step-image">
           <img src="https://cdn-icons-png.flaticon.com/512/12570/12570537.png" alt="Get Diagnosis" />
         </div>
       </div>
       <div class="step animate__animated animate__fadeInRight" style="animation-delay: 0.8s;">
+        <div class="step-number">4</div>
         <div class="step-content">
-          <h3>Step 4: Consult & Download</h3>
-          <p>Chat with experts and download your report.</p>
+          <h3>Consult & Download</h3>
+          <p>Connect with medical experts for personalized advice and download your comprehensive health report in
+            multiple formats including PDF and CSV for your records.</p>
         </div>
         <div class="step-image">
           <img src="https://cdn-icons-png.flaticon.com/512/7021/7021902.png" alt="Consult & Download" />
@@ -422,13 +1169,90 @@
   <!-- About Section -->
   <section id="about" class="about-section">
     <div class="container">
-      <h2 class="animate__animated animate__fadeInDown">About Us</h2>
-      <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-        We are a cutting-edge medical platform dedicated to providing accurate diagnoses and personalized healthcare solutions. Our mission is to empower patients and doctors with advanced technology and seamless communication.
-      </p>
-      <div class="row mt-4">
-        <div class="col-md-12 text-center animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
-          <img src="https://cdn.vectorstock.com/i/500p/83/36/happy-friendship-day-vector-25188336.jpg" alt="Our Team" class="img-fluid" />
+      <h2>
+        <h2 class="letter">About us</h2>
+      </h2>
+      <div class="about-container animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+        <div class="row g-0">
+          <div class="col-lg-6">
+            <div class="about-content">
+              <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.3s;">
+                We are a cutting-edge medical platform dedicated to providing accurate diagnoses and personalized
+                healthcare solutions. Our mission is to empower patients and doctors with advanced technology and
+                seamless communication, bridging the gap between medical expertise and patient needs.
+              </p>
+              <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.4s;">
+                With years of experience in healthcare technology, we combine artificial intelligence with medical
+                expertise to deliver reliable and efficient diagnostic services. Our platform ensures that quality
+                healthcare is accessible to everyone, anywhere, anytime, with a focus on accuracy, privacy, and user
+                experience.
+              </p>
+              <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.5s;">
+                Our team consists of medical professionals, data scientists, and software engineers working together to
+                create the most advanced diagnostic tools available. We continuously update our algorithms with the
+                latest medical research to ensure our users receive the most current and accurate information.
+              </p>
+              <div class="about-stats">
+                <div class="stat-item animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                  <div class="stat-number">10K+</div>
+                  <div class="stat-label">Happy Patients</div>
+                </div>
+                <div class="stat-item animate__animated animate__fadeInUp" style="animation-delay: 0.7s;">
+                  <div class="stat-number">500+</div>
+                  <div class="stat-label">Expert Doctors</div>
+                </div>
+                <div class="stat-item animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                  <div class="stat-number">98%</div>
+                  <div class="stat-label">Accuracy Rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="about-image">
+              <img src="https://cdn.vectorstock.com/i/500p/83/36/happy-friendship-day-vector-25188336.jpg"
+                alt="Our Team">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2 class="animate__animated animate__fadeInDown">
+        <h2 class="letter">Contact us</h2>
+      </h2>
+      <div class="row justify-content-center">
+        <div class="col-md-10 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+          <div class="contact-container">
+            <div class="contact-form">
+              <form>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Subject">
+                </div>
+                <div class="mb-3">
+                  <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100">Send Message</button>
+              </form>
+            </div>
+            <div class="contact-image">
+              <img
+                src="https://img.freepik.com/premium-photo/medical-staff-people-group-team-doctor-nurse-hospital-healthcare-medicine-ai_592076-1375.jpg"
+                alt="Contact Us" class="img-fluid">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -453,7 +1277,7 @@
         <a href="#">Terms of Service</a>
       </div>
       <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
-        © 2025 Medical Diagnosis System. All rights reserved.
+        <center>© 2025 Medical Diagnosis System. All rights reserved.</center>
       </p>
     </div>
   </footer>
@@ -463,7 +1287,7 @@
   <script>
     // Smooth Scroll for Navbar Links
     document.querySelectorAll('.nav-link').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         if (this.getAttribute('href').startsWith('#')) {
           e.preventDefault();
           const target = document.querySelector(this.getAttribute('href'));
@@ -471,6 +1295,31 @@
         }
       });
     });
+
+    // Add active class to current section in navbar
+    window.addEventListener('scroll', function () {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+
+        if (pageYOffset >= (sectionTop - 300)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
   </script>
 </body>
+
 </html>
