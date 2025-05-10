@@ -137,8 +137,8 @@ python main.py
 ## 📸 Screenshots
 
 ### 🏠 Home Page – Welcome Interface  
-![Home1](screenshots/Home1.png)  
-![Home2](screenshots/Home2.png)
+![Home1](Screenshots/Home1.png)  
+![Home2](Screenshots/Home2.png)
 
 ---
 
