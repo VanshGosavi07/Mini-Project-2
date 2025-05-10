@@ -1,0 +1,466 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- Bubbles Outside the Container -->
+<div class="bubble bubble-0"></div>
+<div class="bubble bubble-1"></div>
+<div class="bubble bubble-2"></div>
+<div class="bubble bubble-3"></div>
+<div class="bubble bubble-4"></div>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div
+    class="card shadow-lg animate__animated animate__fadeIn"
+    style="
+      max-width: 1000px;
+      width: 90%;
+      border-radius: 20px;
+      border: none;
+      overflow: hidden;
+    "
+  >
+    <div class="row g-0">
+      <!-- Left Side: Animated Character -->
+      <div
+        class="col-md-5 d-flex align-items-center justify-content-center p-4 position-relative"
+        style="background: linear-gradient(135deg, #910a67, #4a148c)"
+      >
+        <!-- Floating Bubbles -->
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+        <div class="bubble bubble-7"></div>
+        <div class="bubble bubble-8"></div>
+
+        <div class="character-container text-center">
+          <div
+            class="character animate__animated animate__rubberBand animate__delay-1s"
+          >
+            <svg width="120" height="120" viewBox="0 0 512 512">
+              <circle cx="256" cy="256" r="256" fill="#F8E7F6" />
+              <circle cx="256" cy="180" r="100" fill="#910A67" />
+              <ellipse cx="210" cy="160" rx="15" ry="20" fill="white" />
+              <ellipse cx="300" cy="160" rx="15" ry="20" fill="white" />
+              <circle cx="210" cy="160" r="7" fill="#333" />
+              <circle cx="300" cy="160" r="7" fill="#333" />
+              <path
+                d="M180 240 Q256 320 330 240"
+                stroke="#333"
+                stroke-width="5"
+                fill="transparent"
+              />
+              <path
+                d="M150 100 Q120 120 130 150"
+                stroke="#4A148C"
+                stroke-width="5"
+                fill="transparent"
+              />
+              <path
+                d="M360 100 Q390 120 380 150"
+                stroke="#4A148C"
+                stroke-width="5"
+                fill="transparent"
+              />
+            </svg>
+          </div>
+          <h2
+            class="text-white mt-3 display-5 fw-bold animate__animated animate__fadeInDown animate__delay-500ms"
+          >
+            Create Account!
+          </h2>
+          <p
+            class="text-white-50 animate__animated animate__fadeIn animate__delay-1s"
+          >
+            Join our medical platform today
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Side: Registration Form -->
+      <div
+        class="col-md-7 p-4 position-relative"
+        style="background: linear-gradient(to bottom, #ffffff, #fbf0f8)"
+      >
+        <!-- Floating Bubbles -->
+        <div class="bubble bubble-9"></div>
+        <div class="bubble bubble-10"></div>
+        <div class="bubble bubble-11"></div>
+        <div class="bubble bubble-12"></div>
+
+        <h3
+          class="mb-4 text-center animate__animated animate__fadeInUp"
+          style="color: #910a67; font-weight: bold; font-size: 2rem"
+        >
+          Register Form
+        </h3>
+
+        <form
+          action="/register"
+          method="POST"
+          class="needs-validation animate__animated animate__fadeInUp animate__delay-500ms"
+          novalidate
+        >
+          {{ form.hidden_tag() }}
+
+          <!-- Name and Gender in One Row -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-user"></i>
+                </span>
+                {{ form.name.label(for="name", class="form-label fw-bold
+                d-none") }} {{ form.name(id="name", class="form-control
+                border-start-0", placeholder="Enter your name",
+                style="background-color: #F8E7F6; border-color: #910A67;") }} {%
+                if form.name.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.name.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-venus-mars"></i>
+                </span>
+                {{ form.gender.label(for="gender", class="form-label fw-bold
+                d-none") }} {{ form.gender(id="gender", class="form-control
+                border-start-0", style="background-color: #F8E7F6; border-color:
+                #910A67;") }} {% if form.gender.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.gender.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Email and Password in One Row -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-envelope"></i>
+                </span>
+                {{ form.email.label(for="email", class="form-label fw-bold
+                d-none") }} {{ form.email(id="email", class="form-control
+                border-start-0", placeholder="Enter your email",
+                style="background-color: #F8E7F6; border-color: #910A67;") }} {%
+                if form.email.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.email.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-lock"></i>
+                </span>
+                {{ form.password.label(for="password", class="form-label fw-bold
+                d-none") }} {{ form.password(id="password", class="form-control
+                border-start-0", placeholder="Enter your password",
+                style="background-color: #F8E7F6; border-color: #910A67;") }} {%
+                if form.password.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.password.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Date of Birth and Contact Number in One Row -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-calendar-alt"></i>
+                </span>
+                {{ form.date_of_birth.label(for="date_of_birth",
+                class="form-label fw-bold d-none") }} {{
+                form.date_of_birth(id="date_of_birth", class="form-control
+                border-start-0", type="date", style="background-color: #F8E7F6;
+                border-color: #910A67;") }} {% if form.date_of_birth.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.date_of_birth.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-phone"></i>
+                </span>
+                {{ form.contact_number.label(for="contact_number",
+                class="form-label fw-bold d-none") }} {{
+                form.contact_number(id="contact_number", class="form-control
+                border-start-0", placeholder="Enter your contact number",
+                style="background-color: #F8E7F6; border-color: #910A67;") }} {%
+                if form.contact_number.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.contact_number.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- City and User Type in One Row -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-city"></i>
+                </span>
+                {{ form.city.label(for="city", class="form-label fw-bold
+                d-none") }} {{ form.city(id="city", class="form-control
+                border-start-0", placeholder="Enter your city",
+                style="background-color: #F8E7F6; border-color: #910A67;") }} {%
+                if form.city.errors %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.city.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group input-group">
+                <span
+                  class="input-group-text"
+                  style="
+                    background-color: #910a67;
+                    border-color: #910a67;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-user-tag"></i>
+                </span>
+                {{ form.user_type.label(for="user_type", class="form-label
+                fw-bold d-none") }} {{ form.user_type(id="user_type",
+                class="form-control border-start-0", style="background-color:
+                #F8E7F6; border-color: #910A67;") }} {% if form.user_type.errors
+                %}
+                <div
+                  class="invalid-feedback d-block animate__animated animate__headShake"
+                >
+                  {% for error in form.user_type.errors %}
+                  <div>
+                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid gap-2 mt-4">
+            {{ form.submit(class="btn btn-lg animate__animated animate__pulse
+            animate__infinite animate__slow", style="background:
+            linear-gradient(135deg, #910A67,rgb(194, 167, 226)); color: white;
+            font-size: 1.2rem; border: none; box-shadow: 0 4px 15px rgba(222,
+            170, 206, 0.4);") }}
+            <a
+  href="/login"
+  class="btn btn-outline-secondary btn-lg mt-3 animate__animated animate__fadeIn animate__delay-1s custom-hover"
+  style="font-size: 1.1rem; border-color: #4a148c; color: #4a148c; transition: background 0.3s ease-in-out, color 0.3s ease-in-out;"
+>
+  Already Have an Account
+</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Additional JavaScript for Form Animations -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Character animation on click
+    const character = document.querySelector(".character");
+    if (character) {
+      character.addEventListener("click", function () {
+        this.classList.add("animate__animated", "animate__flip");
+        setTimeout(() => {
+          this.classList.remove("animate__animated", "animate__flip");
+        }, 1000);
+      });
+    }
+
+    // Form field animations
+    const formInputs = document.querySelectorAll(".form-control");
+    formInputs.forEach((input, index) => {
+      input.classList.add("animate__animated", "animate__fadeInRight");
+      input.style.animationDelay = index * 0.1 + "s";
+
+      input.addEventListener("focus", function () {
+        this.parentElement.style.transform = "translateX(5px)";
+        this.parentElement.style.transition = "all 0.3s ease";
+      });
+
+      input.addEventListener("blur", function () {
+        this.parentElement.style.transform = "translateX(0)";
+      });
+    });
+  });
+</script>
+<style>
+  .bubble {
+    position: absolute;
+    background-color: rgba(145, 10, 103, 0.1);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .bubble-0 {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 5%;
+    animation: float 6s infinite ease-in-out;
+  }
+
+  .bubble-1 {
+    width: 120px;
+    height: 120px;
+    top: 20%;
+    right: 5%;
+    animation: float 5s infinite ease-in-out;
+  }
+
+  .bubble-2 {
+    width: 100px;
+    height: 100px;
+    bottom: 10%;
+    left: 10%;
+    animation: float 7s infinite ease-in-out;
+  }
+
+  .bubble-3 {
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    right: 15%;
+    animation: float 4s infinite ease-in-out;
+  }
+
+  .bubble-4 {
+    width: 200px;
+    height: 200px;
+    top: 5%;
+    left: 20%;
+    animation: float 8s infinite ease-in-out;
+  }
+  .custom-hover:hover {
+    background: rgb(225, 167, 217) !important; /* Very Light Pink */
+    color: black !important; /* Change text color for better contrast */
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+</style>
+
+{% endblock %}

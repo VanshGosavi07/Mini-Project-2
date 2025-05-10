@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Floating Bubbles Outside the Container -->
+<div class="bubble bubble-0"></div>
+<div class="bubble bubble-1"></div>
+<div class="bubble bubble-2"></div>
+<div class="bubble bubble-3"></div>
+<div class="bubble bubble-4"></div>
+
+<div class="container mt-5">
+  <div
+    class="card shadow-lg animate__animated animate__fadeIn mx-auto"
+    style="
+      max-width: 800px;
+      border-radius: 20px;
+      border: none;
+      overflow: visible;
+    "
+  >
+    <div class="card-body p-4">
+      <h2
+        class="mb-4 text-center animate__animated animate__fadeInDown"
+        style="
+          color: #910a67;
+          font-weight: bolder;
+          font-size: 2.5rem;
+          text-shadow: 1px 1px 2px #ccc;
+        "
+      >
+        Medical Diagnosis Form
+      </h2>
+
+      <form
+        action="{{ url_for('generate_report') }}"
+        method="post"
+        enctype="multipart/form-data"
+        class="needs-validation animate__animated animate__fadeInUp overflow: visible;"
+      >
+        {{ form.hidden_tag() }}
+
+        <div class="row g-3">
+          <!-- Name Field -->
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form.name.label(class="form-label font-weight-bold", style="color: black; font-size: 1.1rem;") }}
+              {{ form.name(class="form-control", placeholder="Enter Name", style="background-color: #F8E7F6; border-color: #910A67; font-size: 1.1rem;") }}
+              {% if form.name.errors %}
+              <div class="invalid-feedback d-block" style="color: red; font-size: 0.9rem">
+                {% for error in form.name.errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Date of Birth Field -->
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form.dob.label(class="form-label font-weight-bold", style="color: black; font-size: 1.1rem;") }}
+              {{ form.dob(class="form-control", type="date", style="background-color: #F8E7F6; border-color: #910A67; font-size: 1.1rem;") }}
+              {% if form.dob.errors %}
+              <div class="invalid-feedback d-block" style="color: red; font-size: 0.9rem">
+                {% for error in form.dob.errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Disease Name Field -->
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form.disease_name.label(class="form-label font-weight-bold", style="color: black; font-size: 1.1rem;") }}
+              {{ form.disease_name(class="form-select", style="background-color: #F8E7F6; border-color: #910A67; font-size: 1.1rem;") }}
+              {% if form.disease_name.errors %}
+              <div class="invalid-feedback d-block" style="color: red; font-size: 0.9rem">
+                {% for error in form.disease_name.errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- CT Images Field -->
+          <div class="col-md-6">
+            <div class="form-group">
+              {{ form.ct_images.label(class="form-label font-weight-bold", style="color: black; font-size: 1.1rem;") }}
+              {{ form.ct_images(class="form-control", style="background-color: #F8E7F6; border-color: #910A67; font-size: 1.1rem;", multiple=true) }}
+              {% if form.ct_images.errors %}
+              <div class="invalid-feedback d-block" style="color: red; font-size: 0.9rem">
+                {% for error in form.ct_images.errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Clinical History and Symptoms in One Row -->
+          <div class="row g-3">
+            <!-- Clinical History Field -->
+            <div class="col-md-6">
+              <div class="form-group">
+                {{ form.clinical_history.label(class="form-label font-weight-bold", style="color: black; font-size: 1.1rem;") }}
+                {{ form.clinical_history(class="form-control", rows=4, style="background-color: #F8E7F6; border-color: #910A67; font-size: 1.1rem;") }}
+                {% if form.clinical_history.errors %}
+                <div class="invalid-feedback d-block" style="color: red; font-size: 0.9rem">
+                  {% for error in form.clinical_history.errors %}
+                  <div>{{ error }}</div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Symptoms Field -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label font-weight-bold" style="color: black; font-size: 1.1rem">Symptoms</label>
+                <div id="symptoms-list">
+                  <div class="row mb-2">
+                    <div class="col-md-10">
+                      <input
+                        type="text"
+                        class="form-control symptom-input"
+                        name="symptoms[]"
+                        placeholder="Enter Symptom"
+                        required
+                        style="background-color: #f8e7f6; border-color: #910a67; font-size: 1.1rem;"
+                      />
+                      <div class="invalid-feedback d-none symptom-error" style="color: red; font-size: 0.9rem">
+                        Symptom is required
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                        type="button"
+                        class="btn"
+                        style="background-color: #910a67; color: white"
+                        onclick="addSymptom()"
+                      >
+                        <i class="bi bi-plus-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {% if form.symptoms.errors %}
+                <div class="invalid-feedback d-block" style="color: red; font-size: 0.9rem">
+                  {% for error in form.symptoms.errors %}
+                  <div>{{ error }}</div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-12">
+            <div class="text-center">
+              {{ form.submit(class="btn mt-4 animate__animated animate__pulse animate__infinite animate__slow", style="background-color: #910A67; color: white; width: 50%; font-size: 1.2rem; border: none; box-shadow: 0 4px 15px rgba(145, 10, 103, 0.4);") }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden field for symptoms JSON -->
+        <input type="hidden" name="symptoms_json" id="symptoms_json_field" />
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Additional CSS for Animations -->
+<style>
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+  /* Floating Bubbles */
+  .bubble {
+    position: absolute;
+    background: rgba(145, 10, 103, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .bubble-0 { width: 150px; height: 150px; top: 10%; left: 5%; animation-delay: 0s; }
+  .bubble-1 { width: 120px; height: 120px; top: 20%; right: 5%; animation-delay: 2s; }
+  .bubble-2 { width: 100px; height: 100px; bottom: 10%; left: 10%; animation-delay: 4s; }
+  .bubble-3 { width: 80px; height: 80px; bottom: 20%; right: 15%; animation-delay: 6s; }
+  .bubble-4 { width: 200px; height: 200px; top: 5%; left: 20%; animation-delay: 8s; }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  /* Responsive Design for Mobile */
+  @media (max-width: 768px) {
+    .card { margin: 20px; }
+    .col-md-6 { width: 100%; }
+    h2 { font-size: 1.5rem !important; }
+  }
+</style>
+
+<script>
+  function addSymptom() {
+    const symptomsDiv = document.getElementById("symptoms-list");
+    const newSymptom = document.createElement("div");
+    newSymptom.className = "row mb-2";
+    newSymptom.innerHTML = `
+      <div class="col-10">
+        <input type="text" class="form-control symptom-input" name="symptoms[]" 
+               placeholder="Enter Symptom" required
+               style="background-color: #F8E7F6; border-color: #910A67; font-size: 1.1rem;">
+        <div class="invalid-feedback d-none symptom-error" style="color: red; font-size: 0.9rem;">
+          Symptom is required
+        </div>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-danger" 
+                onclick="this.parentElement.parentElement.remove()">
+          <i class="bi bi-dash-lg"></i>
+        </button>
+      </div>
+    `;
+    symptomsDiv.appendChild(newSymptom);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function (event) {
+      let isValid = true;
+
+      // Validate all form fields
+      const requiredFields = form.querySelectorAll("[required]");
+      requiredFields.forEach((field) => {
+        if (!field.value.trim()) {
+          field.classList.add("is-invalid");
+          const feedbackElement = field.nextElementSibling;
+          if (feedbackElement && feedbackElement.classList.contains("invalid-feedback")) {
+            feedbackElement.classList.remove("d-none");
+            feedbackElement.classList.add("d-block");
+          }
+          isValid = false;
+        } else {
+          field.classList.remove("is-invalid");
+          const feedbackElement = field.nextElementSibling;
+          if (feedbackElement && feedbackElement.classList.contains("invalid-feedback")) {
+            feedbackElement.classList.add("d-none");
+            feedbackElement.classList.remove("d-block");
+          }
+        }
+      });
+
+      // Validate symptoms
+      const symptomInputs = document.querySelectorAll(".symptom-input");
+      let hasSymptom = false;
+
+      symptomInputs.forEach((input) => {
+        if (input.value.trim()) {
+          hasSymptom = true;
+          input.classList.remove("is-invalid");
+          const feedbackElement = input.nextElementSibling;
+          if (feedbackElement && feedbackElement.classList.contains("symptom-error")) {
+            feedbackElement.classList.add("d-none");
+            feedbackElement.classList.remove("d-block");
+          }
+        }
+      });
+
+      if (!hasSymptom) {
+        symptomInputs.forEach((input) => {
+          input.classList.add("is-invalid");
+          const feedbackElement = input.nextElementSibling;
+          if (feedbackElement && feedbackElement.classList.contains("symptom-error")) {
+            feedbackElement.classList.remove("d-none");
+            feedbackElement.classList.add("d-block");
+          }
+        });
+        isValid = false;
+      }
+
+      if (!isValid) {
+        event.preventDefault();
+        return;
+      }
+
+      // Create symptoms JSON
+      const symptoms = [];
+      document.querySelectorAll('input[name="symptoms[]"]').forEach((input) => {
+        if (input.value.trim()) {
+          symptoms.push(input.value.trim());
+        }
+      });
+
+      document.getElementById("symptoms_json_field").value = JSON.stringify(symptoms);
+    });
+
+    // Clear validation styling when input changes
+    form.querySelectorAll("input, textarea, select").forEach((element) => {
+      element.addEventListener("input", function () {
+        this.classList.remove("is-invalid");
+        const feedbackElement = this.nextElementSibling;
+        if (feedbackElement && (feedbackElement.classList.contains("invalid-feedback") || feedbackElement.classList.contains("symptom-error"))) {
+          feedbackElement.classList.add("d-none");
+          feedbackElement.classList.remove("d-block");
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}

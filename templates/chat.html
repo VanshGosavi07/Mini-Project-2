@@ -1,25 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat Page</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="container mt-5">
-      <div class="card">
-        <div class="card-header">
-          <h2>Chat Room</h2>
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Floating Bubbles -->
+<div class="bubble bubble-0"></div>
+<div class="bubble bubble-1"></div>
+<div class="bubble bubble-2"></div>
+<div class="bubble bubble-3"></div>
+<div class="bubble bubble-4"></div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-12 col-lg-10"> <!-- Increased width -->
+      <div class="card shadow-lg rounded-4 animate__animated animate__fadeIn" style="border: none;">
+        <!-- Chat Header -->
+        <div class="card-header py-3" style="background: linear-gradient(135deg, #910A67, #4A148C); color: #ffffff;">
+          <h4 class="mb-0 animate__animated animate__fadeInDown">Chat Room</h4>
         </div>
-        <div class="card-body">
-          <!-- Chat content goes here -->
+
+        <!-- Chat Body -->
+        <div class="card-body" style="height: 450px; overflow-y: auto; background-color: #F8E7F6;">
+          <div class="chat-messages p-4" id="chatMessages">
+            <!-- Chat messages will be dynamically added here -->
+          </div>
+        </div>
+
+        <!-- Chat Footer (Input Area) -->
+        <div class="card-footer p-3" style="background-color: #ffffff;">
+          <form class="d-flex gap-2" id="chatForm">
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              placeholder="Type your message..."
+              id="messageInput"
+              style="border-color: #910A67; font-size: 1.1rem; background-color: #F8E7F6;"
+            />
+            <button
+              type="submit"
+              class="btn rounded-pill px-4 animate__animated animate__pulse animate__infinite"
+              style="background: linear-gradient(135deg, #910A67, #4A148C); color: #ffffff; font-size: 1.1rem; border: none; box-shadow: 0 4px 15px rgba(145, 10, 103, 0.4);"
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+  </div>
+</div>
+
+<!-- Additional CSS -->
+<style>
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+
+  :root {
+    --primary-color: #910A67;
+    --secondary-color: #4A148C;
+    --light-bg: #F8E7F6;
+    --gradient-bg: linear-gradient(135deg, #910A67, #4A148C);
+    --text-white: #ffffff;
+    --text-dark: #333;
+  }
+
+  /* Floating Bubbles */
+  .bubble {
+    position: absolute;
+    background: rgba(145, 10, 103, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .bubble-0 { width: 150px; height: 150px; top: 10%; left: 5%; animation-delay: 0s; }
+  .bubble-1 { width: 120px; height: 120px; top: 20%; right: 5%; animation-delay: 2s; }
+  .bubble-2 { width: 100px; height: 100px; bottom: 10%; left: 10%; animation-delay: 4s; }
+  .bubble-3 { width: 80px; height: 80px; bottom: 20%; right: 15%; animation-delay: 6s; }
+  .bubble-4 { width: 200px; height: 200px; top: 5%; left: 20%; animation-delay: 8s; }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  /* Chat Message Styling */
+  .message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 55%;
+    word-wrap: break-word;
+    animation-duration: 0.5s;
+  }
+
+  .user-message {
+    background-color: #910A67;
+    color: #ffffff;
+    margin-left: auto;
+    text-align: right;
+    animation-name: slideInRight;
+  }
+
+  .ai-message {
+    background-color: #4A148C;
+    color: #ffffff;
+    margin-right: auto;
+    text-align: left;
+    animation-name: slideInLeft;
+  }
+
+  .message-sender {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffffff;
+  }
+
+  @keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes slideInLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  /* Scrollbar Styling */
+  .card-body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .card-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  .card-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  .card-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .col-md-12 { width: 100%; padding: 0 15px; }
+    .card-body { height: 300px; }
+    .message { max-width: 85%; }
+  }
+</style>
+
+<!-- JavaScript for Chat Functionality -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const chatForm = document.getElementById("chatForm");
+    const messageInput = document.getElementById("messageInput");
+    const chatMessages = document.getElementById("chatMessages");
+
+    chatForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        
+        const messageText = messageInput.value.trim();
+        if (!messageText) return; // Ignore empty input
+
+        // Add user message
+        const userMessage = document.createElement("div");
+        userMessage.className = "message user-message";
+        userMessage.innerHTML = `<div class="message-sender">You</div><div>${messageText}</div>`;
+        chatMessages.appendChild(userMessage);
+
+        // Auto-scroll
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        messageInput.value = "";
+
+        try {
+            // Send user message to Flask backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: messageText }) // Match backend's expected format
+            });
+
+            const data = await response.json();
+
+            // Add AI response
+            const aiMessage = document.createElement("div");
+            aiMessage.className = "message ai-message";
+            aiMessage.innerHTML = `<div class="message-sender">AI</div><div>${data.response}</div>`;
+            chatMessages.appendChild(aiMessage);
+
+            // Auto-scroll
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+});
+
+</script>
+
+{% endblock %}

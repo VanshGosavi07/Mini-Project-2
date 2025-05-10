@@ -1,23 +1,35 @@
-# 🏥 Mini Project 2: Medical Report Generator
 
-## 📌 Project Overview
+# 🏥 आरोग्यनिदानम्: Intelligent Medical Report Generator and Assistant
 
-Mini Project 2 is a **web-based application** designed to generate **detailed medical reports** for patients. The application enables users to input **patient details, disease diagnosis, imaging studies, pathological staging, precautions,** and **recommended diet** to generate a comprehensive medical report.
-
-🔹 **Features:**
-- 🏷 **Input Patient Information**
-- 📑 **Generate Detailed Medical Reports**
-- 🖼 **Include Imaging Studies & Pathological Staging**
-- ⚠ **Provide Precautions & Recommended Diet**
-- 📄 **Download Reports in PDF Format**
-- 💬 **Chat Functionality for Report Discussion**
+> Empowering Healthcare through AI — Automated Diagnosis, Detailed Reports & Personalized Assistance 💡
 
 ---
 
-## 📁 Project File Structure
+## 📌 Overview
+
+**आरोग्यनिदानम्** (Ārogyanidānam) is a **full-stack AI-powered medical assistant and report generator** that assists doctors and patients in diagnosing diseases, analyzing CT scan images, and creating structured reports with AI-driven recommendations.
+
+🚀 Built using **Flask**, **TensorFlow**, **LangChain**, and **FAISS**, the system includes patient management, disease prediction, chat-based medical support, and downloadable PDF reports.
+
+---
+
+## 🧠 Core Features
+
+✨ **Patient Management System** – Register, login & securely store health data  
+🧾 **Medical Report Generation** – Based on symptoms, clinical history & uploaded images  
+📷 **CT Scan Image Analysis** – AI-powered prediction using trained deep learning model  
+📊 **Pathological Staging** – Integrated AI for diagnosis details and staging  
+💬 **Chatbot Assistance** – Ask questions to the AI using LangChain & Groq API  
+🥗 **Health Guidance** – Diet, exercise, and precaution suggestions  
+📥 **PDF Export** – Professionally formatted report downloads for consultation  
+🌐 **RAG-enabled Search** – Contextual retrieval from stored data and generated report using FAISS  
+
+---
+
+## 🗂️ Folder Structure
 
 ```
-Mini Project 2/
+आरोग्यनिदानम्/
 ├── Modal/
 │   ├── Accuracy Matrix.png
 │   ├── Breast_Cancer.ipynb
@@ -25,92 +37,162 @@ Mini Project 2/
 │   ├── Training vs val.png
 │   └── Dataset/
 │       ├── test/
-│       │   ├── 0/
-│       │   └── 1/
 │       ├── train/
-│       │   ├── 0/
-│       │   └── 1/
 │       └── valid/
-│           ├── 0/
-│           └── 1/
+├── screenshots/              # 📸 Project UI screenshots
+│   ├── Home1.png
+│   ├── Home2.png
+│   ├── Register.png
+│   ├── Login.png
+│   ├── Patients_Form.png
+│   ├── Report.png
+│   ├── Chat.png
+│   └── Output.png
 ├── static/
 │   ├── assets/
-│   │   └── signature.jpg
 │   └── uploads/
-│ 
 ├── templates/
+│   ├── base.html
 │   ├── chat.html
+│   ├── form.html
 │   ├── home.html
+│   ├── login.html
+│   ├── register.html
 │   └── report.html
-├── app.py  # Main Flask Application
-├── main.py  # Application Entry Point
-├── README.md  # Project Documentation
-├── requirements.txt  # Dependencies
+├── main.py                    # Flask application logic
+├── requirements.txt           # Python dependencies
+├── LICENSE                    # MIT License
+└── README.md                  # Project Documentation
 ```
 
 ---
 
-## 🛠 Getting Started
+## 🛠️ Tech Stack
 
-### ✅ Prerequisites
-- **Python 3.x** 🐍
-- **Flask Framework** 🚀
+| Layer        | Technology                  |
+|--------------|------------------------------|
+| Backend      | Flask, SQLAlchemy, bcrypt     |
+| Frontend     | HTML5, Bootstrap 5            |
+| AI/ML        | TensorFlow, Keras, OpenCV     |
+| NLP & Chat   | LangChain, Groq API, FAISS    |
+| Storage      | SQLite                        |
+| PDF Reports  | reportlab                     |
 
-### 🔧 Installation
+---
 
-1️⃣ **Clone the Repository:**
-```sh
- git clone https://github.com/VanshGosavi07/Mini-Project-2.git
- cd Mini-Project-2
+## ✅ Prerequisites
+
+- Python 3.10+ 🐍  
+- Flask Framework 🌐  
+- TensorFlow 2.x 🧠  
+- FAISS for vector search 📚  
+- LangChain for RAG & context chat 🤖  
+
+---
+
+## 🔧 Installation & Setup
+
+1. **Clone the Repository**
+
+```bash
+git clone https://github.com/VanshGosavi07/Mini-Project-2.git
+cd Mini-Project-2
 ```
 
-2️⃣ **Install Required Dependencies:**
-```sh
+2. **Install Dependencies**
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 🚀 Running The Application
+3. **Set Environment Variables**
 
-Start the Flask server:
-```sh
+```bash
+set SECRET_KEY=your-secret-key
+set GROQ_API_KEY=your-groq-api-key
+```
+
+🔐 [Get your Groq API Key here](https://console.groq.com/home)
+
+4. **Run the Application**
+
+```bash
 python main.py
 ```
-Then, open your browser and visit **[http://localhost:5000](http://localhost:5000)** to access the application. 🎉
+
+🌍 Open [http://localhost:5000](http://localhost:5000) in your browser.
 
 ---
 
-## 📌 Usage Guide
+## 📘 How to Use
 
-1️⃣ **Enter the patient details** in the provided form.
-2️⃣ **Click on "Generate Report"** to create a comprehensive report.
-3️⃣ **Use "Chat with Report"** to discuss the details with professionals.
-4️⃣ **Click "Download Report"** to save it in PDF format. 📄
+1️⃣ **Register/Login** – Create your account securely  
+2️⃣ **Fill Patient Info** – Enter name, age, symptoms, upload CT image  
+3️⃣ **Generate Report** – AI analyzes image + text and builds full report  
+4️⃣ **Interact via Chat** – Ask questions about the report using the AI bot  
+5️⃣ **Download PDF** – Export report in professional format for consultation
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Home Page – Welcome Interface  
+![Home1](Screenshots/Home1.png)  
+![Home2](Screenshots/Home2.png)
+
+---
+
+### 🔐 Register & Login Pages  
+![Register](Screenshots/Register.png)  
+![Login](Screenshots/Login.png)
+
+---
+
+### 📝 Patient Form  
+![Patient Form](Screenshots/Patients_Form.png)
+
+---
+
+### 📄 Report Generation Output  
+![Report](Screenshots/Report.png)  
+![Output](Screenshots/Output.png)
+
+---
+
+### 💬 Chat Assistant  
+![Chat](Screenshots/Chat.png)
 
 ---
 
 ## 🤝 Contribution Guidelines
 
-We welcome contributions! 🚀
-- **Fork the repository** 🍴
-- **Create a new branch** for your feature 💡
-- **Commit your changes** 📝
-- **Submit a pull request** 📩
+We welcome your ideas, fixes, and features!
 
-🔗 Feel free to report issues and suggest improvements! 🙌
+```bash
+# Fork and Clone the repository
+git checkout -b feature-branch
+git commit -m "✨ Add new feature"
+git push origin feature-branch
+```
+
+Open a **pull request** and let us know what you added 🔧
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License**.
-
-📩 If you have any questions, feel free to reach out! 😊
+This project is licensed under the [MIT License](./LICENSE).  
+Free to use, modify, and distribute.
 
 ---
 
-### 💡 Stay Connected
-🔗 GitHub: [VanshGosavi07](https://github.com/VanshGosavi07)
-📧 Email: your- vanshgosavi7@gmail.com
+## 📬 Contact & Support
 
-🚀 Happy Coding! 🎉
+- GitHub: [@VanshGosavi07](https://github.com/VanshGosavi07)  
+- Email: [vanshgosavi7@gmail.com](mailto:vanshgosavi7@gmail.com)  
+- Phone: 📞 +91 9359775740  
 
+---
+
+🚀 **Build the Future of Digital Healthcare with आरोग्यनिदानम्!**  
+🧑‍⚕️💻📊📥🧠💬📄
