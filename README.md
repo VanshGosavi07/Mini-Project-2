@@ -22,7 +22,7 @@
 💬 **Chatbot Assistance** – Ask questions to the AI using LangChain & Groq API  
 🥗 **Health Guidance** – Diet, exercise, and precaution suggestions  
 📥 **PDF Export** – Professionally formatted report downloads for consultation  
-🌐 **RAG-enabled Search** – Contextual retrieval from previous reports using FAISS  
+🌐 **RAG-enabled Search** – Contextual retrieval from stored data and generated report using FAISS  
 
 ---
 
@@ -143,24 +143,24 @@ python main.py
 ---
 
 ### 🔐 Register & Login Pages  
-![Register](screenshots/Register.png)  
-![Login](screenshots/Login.png)
+![Register](Screenshots/Register.png)  
+![Login](Screenshots/Login.png)
 
 ---
 
 ### 📝 Patient Form  
-![Patient Form](screenshots/Patients_Form.png)
+![Patient Form](Screenshots/Patients_Form.png)
 
 ---
 
 ### 📄 Report Generation Output  
-![Report](screenshots/Report.png)  
-![Output](screenshots/Output.png)
+![Report](Screenshots/Report.png)  
+![Output](Screenshots/Output.png)
 
 ---
 
 ### 💬 Chat Assistant  
-![Chat](screenshots/Chat.png)
+![Chat](Screenshots/Chat.png)
 
 ---
 
